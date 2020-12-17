@@ -39,7 +39,6 @@ jobs:
 
     - name: Building nixos.org
       run: |
-        echo $PATH
         nix develop ./#packages.x86_64-linux.storyBook --command yarn run build-storybook
 
     - name: Deploy to Netlify
