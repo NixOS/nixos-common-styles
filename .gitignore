@@ -1,3 +1,4 @@
 /result*
 /.cache/
 /node_modules
+/storybook-static/

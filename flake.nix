@@ -14,7 +14,7 @@
     in rec {
 
       lib.memoizeAssets = assets:
-        pkgs.runCommandNoCC "nixos-site-svg-assets" {
+        pkgs.runCommandNoCC "nixos-styles-svg-assets" {
           nativeBuildInputs = with pkgs.nodePackages; [
             svgo
           ];
@@ -93,8 +93,16 @@
               "@storybook/html"
             ];
           postInstall = ''
+            # XXX: this is a hacky way to get things working
+            #      we need to upstream this fixes
+
+            # node_modules is ready only
             sed -i -e "s|node_modules/.cache/storybook|.cache/storybook|" \
               $out/libexec/${package.name}/node_modules/@storybook/core/dist/server/utils/resolve-path-in-sb-cache.js
+
+            # copied favicon.ico is not writable
+            sed -i -e 's|await (0, _cpy.default)(defaultFavIcon, outputDir);|await (0, _cpy.default)(defaultFavIcon, outputDir);_fsExtra.default.chmod(_path.default.join(outputDir, _path.default.basename(defaultFavIcon)), 0o200);|' \
+              $out/libexec/${package.name}/node_modules/@storybook/core/dist/server/build-static.js
           '';
         };
 
