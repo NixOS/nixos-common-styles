@@ -65,7 +65,8 @@
                 token=''${token^^}
                 token=''${token//[^A-Z0-9]/_}
                 token=SVG_''${token/%_SVG/}
-                substituteInPlace $out --replace "@$token" "'$(cat $f)'"
+                substituteInPlace $out --replace "@$token)" "'$(cat $f)')"
+                substituteInPlace $out --replace "@$token," "'$(cat $f)',"
               done
 
               rm -rf $in.tmp
