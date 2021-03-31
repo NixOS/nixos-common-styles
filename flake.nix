@@ -77,6 +77,7 @@
 
             src = self;
 
+            preferLocalBuild = true;
             enableParallelBuilding = true;
 
             buildInputs = [
@@ -95,10 +96,18 @@
 
           storyBookYarnPkg = pkgs.yarn2nix-moretea.mkYarnPackage rec {
             name = "${package.name}-yarn-${package.version}";
+
             src = null;
             dontUnpack = true;
+
+            preferLocalBuild = true;
+            enableParallelBuilding = true;
+
             packageJSON = ./package.json;
             yarnLock = ./yarn.lock;
+
+            buildInputs = with pkgs; [ lessc ];
+
             preConfigure = ''
               mkdir ${package.name}
               cd ${package.name}
