@@ -1,4 +1,4 @@
-import './button.css';
+import './button.less';
 
 export const createButton = ({
   primary = false,

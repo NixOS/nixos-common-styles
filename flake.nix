@@ -106,8 +106,6 @@
             packageJSON = ./package.json;
             yarnLock = ./yarn.lock;
 
-            buildInputs = with pkgs; [ lessc ];
-
             preConfigure = ''
               mkdir ${package.name}
               cd ${package.name}
