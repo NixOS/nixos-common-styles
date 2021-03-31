@@ -12,6 +12,9 @@ sites in NixOS project. Few examples:
 ## Contribute
 
 
+## Issues
+
+- when changing svg you need to run emmbedSVG script
 
 
 ## License
