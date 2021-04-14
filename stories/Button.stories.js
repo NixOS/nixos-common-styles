@@ -1,49 +1,34 @@
-import { storiesOf } from '@storybook/html';
 import '../src/index.less';
 
-storiesOf('Forms/Button', module)
-  .add('default', () => '<button>Button</button>')
+export const Button = ({ label, type }) => {
+  const className = [];
 
-//import { createButton } from './Button';
-//
-//export default {
-//  title: 'Components/Button',
-//  argTypes: {
-//    label: { control: 'text' },
-//    primary: { control: 'boolean' },
-//    backgroundColor: { control: 'color' },
-//    size: {
-//      control: { type: 'select', options: ['small', 'medium', 'large'] },
-//    },
-//    onClick: { action: 'onClick' },
-//  },
-//};
-//
-//const Template = ({ label, ...args }) => {
-//  // You can either use a function to create DOM elements or use a plain html string!
-//  // return `<div>${label}</div>`;
-//  return createButton({ label, ...args });
-//};
-//
-//export const Primary = Template.bind({});
-//Primary.args = {
-//  primary: true,
-//  label: 'Button',
-//};
-//
-//export const Secondary = Template.bind({});
-//Secondary.args = {
-//  label: 'Button',
-//};
-//
-//export const Large = Template.bind({});
-//Large.args = {
-//  size: 'large',
-//  label: 'Button',
-//};
-//
-//export const Small = Template.bind({});
-//Small.args = {
-//  size: 'small',
-//  label: 'Button',
-//};
+  if (type && type != '(none)') {
+    className.push(`-${type}`);
+  }
+  const btn = document.createElement('button');
+
+  btn.innerText = label;
+  if (className.length > 0) {
+    btn.className = className.join(' ');
+  }
+
+  return btn;
+};
+
+export default {
+  title: 'Forms/Button', 
+  component: Button,
+  argTypes : {
+    label: {
+      control: 'text',
+      defaultValue: 'Button label',
+    },
+    type: {
+      control: {
+        type: 'select',
+        options: ['(none)', 'primary', 'light', 'highlighted']
+      },
+    },
+  },
+}
