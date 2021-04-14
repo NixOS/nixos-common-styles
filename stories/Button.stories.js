@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/html';
-import "./button.less";
+import '../src/index.less';
 
 storiesOf('Forms/Button', module)
   .add('default', () => '<button>Button</button>')
