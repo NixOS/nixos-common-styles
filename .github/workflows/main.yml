@@ -38,7 +38,10 @@ jobs:
 
     - name: Building nixos.org
       run: |
-        nix develop ./#packages.x86_64-linux.storyBook --command yarn run build-storybook
+        nix build ./#packages.x86_64-linux.storyBook
+        rm -rf ./publish
+        mkdir ./publish
+        cp -R ./result/* ./publish
 
     - name: Deploy to Netlify
       uses: nwtgck/actions-netlify@v1.1
@@ -48,7 +51,7 @@ jobs:
       with:
         production-branch: 'main'
         production-deploy: true
-        publish-dir: './storybook-static'
+        publish-dir: './publish'
         github-token: ${{ secrets.GITHUB_TOKEN }}
         deploy-message: 'Deploy from GitHub Actions'
         enable-pull-request-comment: true

@@ -10,6 +10,7 @@
     "@storybook/html": "^6.1.11",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.1",
+    "less": "^4.1.1",
     "less-loader": "^7.1.0"
   },
   "scripts": {
