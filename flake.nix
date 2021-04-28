@@ -127,17 +127,24 @@
 
               # node_modules is ready only
               sed -i -e "s|node_modules/.cache/storybook|.cache/storybook|" \
-                $out/libexec/${package.name}/node_modules/@storybook/core/dist/server/utils/resolve-path-in-sb-cache.js
+                $out/libexec/${package.name}/node_modules/@storybook/core-common/dist/esm/utils/resolve-path-in-sb-cache.js
+              sed -i -e "s|node_modules/.cache/storybook|.cache/storybook|" \
+                $out/libexec/${package.name}/node_modules/@storybook/core-common/dist/cjs/utils/resolve-path-in-sb-cache.js
 
               # copied favicon.ico is not writable
-              sed -i -e 's|await (0, _cpy.default)(defaultFavIcon, outputDir);|await (0, _cpy.default)(defaultFavIcon, outputDir);_fsExtra.default.chmod(_path.default.join(outputDir, _path.default.basename(defaultFavIcon)), 0o200);|' \
-                $out/libexec/${package.name}/node_modules/@storybook/core/dist/server/build-static.js
+              sed -i -e 's|await cpy(defaultFavIcon, options.outputDir);|await cpy(defaultFavIcon, options.outputDir); fs.chmod(path.join(options.outputDir, path.basename(defaultFavIcon)), 0o200);|' \
+                $out/libexec/${package.name}/node_modules/@storybook/core-server/dist/esm/build-static.js
+              sed -i -e 's|await (0, _cpy.default)(defaultFavIcon, options.outputDir);|await (0, _cpy.default)(defaultFavIcon, options.outputDir);_fsExtra.default.chmod(_path.default.join(options.outputDir, _path.default.basename(defaultFavIcon)), 0o200);|' \
+                $out/libexec/${package.name}/node_modules/@storybook/core-server/dist/cjs/build-static.js
             '';
           };
 
           storyBook = pkgs.stdenv.mkDerivation {
             name = "${package.name}-${package.version}";
             src = pkgs.lib.cleanSource ./.;
+
+            preferLocalBuild = true;
+            enableParallelBuilding = true;
 
             buildInputs =
               [
