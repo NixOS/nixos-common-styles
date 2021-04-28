@@ -1,6 +1,6 @@
 // This file defines the navigation bar at the top of the page.
 
-body > header {
+.navigation-bar {
   @_height: #theme.navbar[height];
   @_link_flavour_size: 4*@unit;
   #no-select();
@@ -328,7 +328,7 @@ body > header {
 // =============
 
 & when (#theme.navbar[static] = true) {
-  body > header {
+  .navigation-bar {
     position: static;
     top: 0;
     left: 0;
@@ -366,4 +366,9 @@ body > header {
   #screen-xs-max({
     @rules();
   });
+}
+
+// Default class-less usage
+body > header {
+  &:extend(.navigation-bar all);
 }
