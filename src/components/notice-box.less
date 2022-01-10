@@ -8,6 +8,10 @@
     margin-top: 0;
   }
 
+  & > :last-child {
+    margin-bottom: 0;
+  }
+
   &.-info {
     color: #theme.color[blue-dark];
     background: #theme.color[blue-lighter];
@@ -20,5 +24,9 @@
     // 27% is the minimum required to get 4.5:1 contrast ratio.
     color: darken(#theme.color[orange-dark], 27%);
     background-color: #theme.color[orange-light];
+  }
+  &.-danger {
+    color: #theme.color[red-dark];
+    background: #theme.color[red-light];
   }
 }
