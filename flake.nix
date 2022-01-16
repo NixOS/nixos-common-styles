@@ -35,6 +35,13 @@
             installPhase = ''
               mkdir $out
               cp -R src/* $out/
+
+              # First delete source SVG files.
+              # This serves two purposes:
+              #   - Validate they're not accidentally used in the final build
+              #   - Skip needlessly optimizing them
+              find $out/ -name '*.src.svg' -delete
+              # Then optimize the remaining SVGs
               find $out/ -name '*.svg' -print0 \
                 | xargs --null --max-procs=$NIX_BUILD_CORES --max-args=1 svgo
             '';
