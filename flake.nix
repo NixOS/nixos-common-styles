@@ -28,9 +28,15 @@
             preferLocalBuild = true;
             enableParallelBuilding = true;
 
+            buildInputs = [
+              pkgs.nodePackages.svgo
+            ];
+
             installPhase = ''
               mkdir $out
               cp -R src/* $out/
+              find $out/ -name '*.svg' -print0 \
+                | xargs --null --max-procs=$NIX_BUILD_CORES --max-args=1 svgo
             '';
           };
 
