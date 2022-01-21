@@ -14,11 +14,15 @@
 
       flake = {
 
-        defaultPackage."${system}" = flake.packages."${system}".commonStyles;
+        defaultPackage.${system} = flake.packages.${system}.commonStyles;
 
-        checks."${system}".build = flake.defaultPackage."${system}";
+        devShell.${system} = flake.packages.${system}.storyBook;
 
-        packages."${system}" = rec {
+        checks.${system} = ; {
+          inherit (flake.packages.commonStyles.${system}) commonStyles storyBook;
+        };
+
+        packages.${system} = rec {
 
           commonStyles = pkgs.stdenv.mkDerivation {
             name = "nixos-common-styles-${self.lastModifiedDate}";
