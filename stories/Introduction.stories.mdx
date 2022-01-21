@@ -24,12 +24,30 @@ code in the `stories/` directory.
 
 # Develop and contribute
 
-TODO:
+## Development shell
+
+```
+ $ nix-shell -A packages.x86_64-linux.storyBook
+[...]
+======================================
+= To develop run: yarn run storybook =
+======================================
+
+[nix-shell:~/.../nixos/nixos-common-styles]$ yarn run storybook
+```
+
+The storybook instance should be available at `http://localhost:6006/`.
+
+> **Tip**: If you're working from a headless system, storybook may
+> rudely try and fail to launch a browser. Work around this with:
+>
+> ```
+>  $ export BROWSER=true
+> ```
 
 ## Known issues
 
-TODO:
-- when changing svg you need to run emmbedSVG script
+*None for the time being.*
 
 # License
 
