@@ -12,6 +12,20 @@
     margin-bottom: 0;
   }
 
+  // The slim variant should be used sparingly, and mainly for "application style"
+  // user interfaces. (E.g. a warning on a status page.)
+  &.-slim {
+    padding-top:    0.5*@gutter;
+    padding-bottom: 0.5*@gutter;
+  }
+
+  // Color variants
+  // --------------
+
+  // (Unconfigured; prefer configuring a color)
+  & {
+    background: #theme.color[gray-lighter];
+  }
   &.-info {
     color: #theme.color[blue-dark];
     background: #theme.color[blue-lighter];

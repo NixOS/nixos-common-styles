@@ -1,6 +1,14 @@
 // This file defines the navigation bar at the top of the page.
 
-body > header {
+.navigation-bar {
+  // 50px logo height in the mockups
+  // 464 is the logo height in the svg document, which is 517 tall
+  @_lambdaflake_height: 50 * 517 / 464 * @unit;
+
+  // Use three's complement to automatically compute the widths.
+  @_lambdaflake_width: @_lambdaflake_height * 587/517;
+  @_nixos_text_width: @_lambdaflake_height * 1059/516;
+
   @_height: #theme.navbar[height];
   @_link_flavour_size: 4*@unit;
   #no-select();
@@ -60,6 +68,40 @@ body > header {
   // This ends up being replaced by the logo.
   h1 {
     font-size: 1.2em;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+  }
+
+  h1 .subtitle {
+    font-size: 16*@unit;
+    font-family: #theme.font[secondary];
+    font-weight: #theme.font[secondary-weight];
+
+    color: #theme.color[white];
+    background-color: #theme.color[blue-dark2];
+
+    padding: 0.5*@gutter;
+    border-radius: 0.5*#theme.common[radius];
+    line-height: 1.1;
+    // Font "feels" lopsided here
+    padding-top: 0.6*@gutter;
+    padding-bottom: 0.3*@gutter;
+
+    min-height: auto;
+    height: auto;
+    flex-grow: 0;
+    align-self: center;
+  }
+
+  // Safeguard against incomplete DOM
+  // The `h1` element should use `-with-subtitle` when used with a subtitle.
+  h1:not(.-with-subtitle) {
+    .subtitle {
+      #screen-xxs-only({
+        display: none;
+      });
+    }
   }
 
   // NixOS-specific customization of the navbar brand.
@@ -67,14 +109,6 @@ body > header {
   // to replace it with the pre-rendered paths.
   // It is using separate images for the logo and the text.
   h1 > a {
-    // 50px logo height in the mockups
-    // 464 is the logo height in the svg document, which is 517 tall
-    @_lambdaflake_height: 50 * 517 / 464 * @unit;
-
-    // Use three's complement to automatically compute the widths.
-    @_lambdaflake_width: @_lambdaflake_height * 587/517;
-    @_nixos_text_width: @_lambdaflake_height * 1059/516;
-
     #text-replacement(
       @image-rules: {
         // Causes the pseudo-element to stick to the left.
@@ -125,6 +159,15 @@ body > header {
 
     padding: 0;
     margin-right: @gutter;
+  }
+
+  h1.-with-subtitle a {
+    #screen-xxs-only({
+      width: @_lambdaflake_width;
+      &::after {
+        display: none;
+      }
+    });
   }
 
   nav .button {
@@ -328,7 +371,7 @@ body > header {
 // =============
 
 & when (#theme.navbar[static] = true) {
-  body > header {
+  .navigation-bar {
     position: static;
     top: 0;
     left: 0;
@@ -366,4 +409,9 @@ body > header {
   #screen-xs-max({
     @rules();
   });
+}
+
+// Default class-less usage
+body > header {
+  &:extend(.navigation-bar all);
 }

@@ -1,0 +1,16 @@
+@import "../src/index.less";
+
+body > #root {
+  header {
+    &:extend(.navigation-bar all);
+  }
+}
+
+body.sb-main-padded.sb-show-main {
+  & > #root > header {
+    // Storybook-specific workaround
+    margin-top: -@gutter;
+    margin-left: -@gutter;
+    margin-right: -@gutter;
+  }
+}
