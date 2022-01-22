@@ -26,13 +26,15 @@ jobs:
         name: nixos-common-styles
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
 
-    - name: Build commonStyles
+    - name: Build ./#commonStyles
       run: |
-        nix build ./#packages.x86_64-linux.commonStyles
+        nix build ./#commonStyles
 
-    - name: Building Story Book
+    - name: Build ./#storyBook
       run: |
-        nix build ./#packages.x86_64-linux.storyBook
+        nix build ./#storyBook
+
+    - name: Copy built ./#storyBook to the ./publish directory
         rm -rf ./publish
         mkdir ./publish
         cp -R ./result/* ./publish
