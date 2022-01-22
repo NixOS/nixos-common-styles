@@ -26,11 +26,11 @@ jobs:
         name: nixos-common-styles
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
 
-    - name: Run all checks
+    - name: Build commonStyles
       run: |
-        nix flake check
+        nix build ./#packages.x86_64-linux.commonStyles
 
-    - name: Building nixos.org
+    - name: Building Story Book
       run: |
         nix build ./#packages.x86_64-linux.storyBook
         rm -rf ./publish

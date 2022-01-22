@@ -1,6 +1,13 @@
 {
   description = "Common styles for NixOS related web sites.";
 
+  nixConfig = {
+    extra-substituters =
+      [ "https://nixos-common-styles.cachix.org" ];
+    extra-trusted-public-keys =
+      [ "nixos-common-styles.cachix.org-1:k7qPYZGMsdFahLafsW9x63hyMnGiv/+6vg1fJMJyutQ=" ];
+  };
+
   inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
