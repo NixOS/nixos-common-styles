@@ -1,6 +1,9 @@
-name: "Build StoryBook & Deploy to Netlify"
+name: "CI"
 on:
   pull_request:
+  push:
+    branches:
+      - main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -12,31 +15,27 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Nix
-      uses: cachix/install-nix-action@v12
+      uses: cachix/install-nix-action@v16
       with:
         nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          experimental-features = nix-command flakes
 
-    - uses: cachix/cachix-action@v8
+    - uses: cachix/cachix-action@v10
       with:
         name: nixos-common-styles
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
 
-    - name: Install unstable channel
+    - name: Build ./#commonStyles
       run: |
-        nix-channel --add https://nixos.org/channels/nixpkgs-unstable
-        nix-channel --update
+        nix build ./#commonStyles
 
-    - name: Installing NixFlakes
+    - name: Build ./#storyBook
       run: |
-        nix-env -iA nixpkgs.nixFlakes
-        echo 'experimental-features = nix-command flakes' | sudo tee -a /etc/nix/nix.conf
-        nix --version
-        cat /etc/nix/nix.conf
-        echo "$HOME/.nix-profile/bin:$PATH" >> $GITHUB_PATH
+        nix build ./#storyBook
 
-    - name: Building nixos.org
+    - name: Copy built ./#storyBook to the ./publish directory
       run: |
-        nix build ./#packages.x86_64-linux.storyBook
         rm -rf ./publish
         mkdir ./publish
         cp -R ./result/* ./publish
@@ -48,6 +47,7 @@ jobs:
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       with:
         production-branch: 'main'
+        production-deploy: ${{ github.event_name == 'push' }}
         publish-dir: './publish'
         github-token: ${{ secrets.GITHUB_TOKEN }}
         deploy-message: 'Deploy from GitHub Actions'
