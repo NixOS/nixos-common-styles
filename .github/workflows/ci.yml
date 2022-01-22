@@ -35,6 +35,7 @@ jobs:
         nix build ./#storyBook
 
     - name: Copy built ./#storyBook to the ./publish directory
+      run: |
         rm -rf ./publish
         mkdir ./publish
         cp -R ./result/* ./publish
