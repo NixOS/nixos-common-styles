@@ -97,13 +97,9 @@
           buildInputs =
             [
               final.pkgs.storyBookYarnPkg
-            ] ++
-            (with prev.pkgs; [
-              nodejs
-            ]) ++
-            (with prev.pkgs.nodePackages; [
-              yarn
-            ]);
+              prev.pkgs.nodejs
+              prev.pkgs.nodePackages.yarn
+            ];
 
           patchPhase = ''
             rm -rf node_modules
@@ -142,7 +138,5 @@
       defaultPackage = forAllSystems (system: self.packages.${system}.commonStyles);
 
       checks = forAllSystems (system: { build = self.defaultPackage.${system}; });
-      #
-      # packages."${system}" = {};
     };
 }
