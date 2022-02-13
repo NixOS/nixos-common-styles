@@ -1,0 +1,92 @@
+//
+// `.styled-table` implements the basic styles for tables.
+// `.styled-table.striped` provides the striped variant.
+//
+
+.__styled_table {
+  @_padding: @gutter /2;
+
+  thead {
+    th {
+      background: #theme.color[blue-lighter];
+      border-bottom: @unit solid #theme.color[gray-light];
+      text-align: left;
+    }
+  }
+
+  th, td {
+    padding: @_padding;
+  }
+
+  // By default we'll have headers not split on words.
+  th {
+    white-space: nowrap;
+  }
+
+  // Links as direct descendent of cells fill *more* of the cell than usual.
+  // In width it fills it entirely, in height it fills half of the padding.
+  // Why? So there's more of a separation between links between rows. Helps
+  // reduce risks of misclicks.
+  td, th {
+    & > a:last-child:first-child {
+      body.-debug & {
+        outline: 1px solid aqua;
+      }
+      display: block;
+      border-bottom: 0;
+      margin:  (-@_padding / 2) (-@_padding);
+      padding: ( @_padding / 2) ( @_padding);
+    }
+  }
+
+  // On not-so-wider resolutions, reduce text size.
+  #screen-sm-only({
+    td, th {
+      font-size: 0.8em;
+    }
+  });
+  #screen-md-only({
+    td, th {
+      font-size: 0.9em;
+    }
+  });
+}
+
+.__styled_table-striped {
+  tr {
+    background: #theme.color[white];
+  }
+  tr:nth-child(2n) {
+    background: #theme.color[blue-lighter];
+  }
+}
+
+.styled-table {
+  &:extend(.__styled_table all);
+  // Internal API when using the mixins
+  &.striped { &:extend(.__styled_table-striped all); }
+  // External API when using the class names.
+  &.-striped { .styled-table.striped }
+}
+
+//
+// `.responsivescroll-table` has to be used (or mixed-in) as the parent element of
+// a table that will be scrolled horizontally on narrow viewports.
+//
+
+.__responsivescroll-table {
+  overflow-x: auto;
+  #screen-xs-max({
+    overflow-x: scroll;
+    box-shadow: 0 2*@unit 12*@unit 0 #theme.color[gray-light];
+    margin-left: -@gutter;
+    margin-right: -@gutter;
+  });
+  // Make sure cells don't wrap
+  td {
+    white-space: nowrap;
+  }
+}
+.responsivescroll-table {
+  &:extend(.__responsivescroll-table all);
+}
