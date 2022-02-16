@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="icon-warning.src.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     units="px"
+     width="24px"
+     inkscape:showpageshadow="false"
+     borderlayer="true"
+     inkscape:zoom="27.340293"
+     inkscape:cx="9.5646377"
+     inkscape:cy="12.527298"
+     inkscape:window-width="1916"
+     inkscape:window-height="1047"
+     inkscape:window-x="1680"
+     inkscape:window-y="29"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     inkscape:snap-global="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid357"
+       originx="2.7755576e-17"
+       originy="2.7755576e-17" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;fill-opacity:1;stroke:#face12;stroke-width:1.344;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 12.000002,3.2587442 22.330637,21.319463 H 1.669363 Z"
+       id="path142"
+       sodipodi:nodetypes="cccc" />
+    <g
+       aria-label="!"
+       id="text2722"
+       style="font-size:40px;line-height:1.25"
+       transform="matrix(0.41152043,0,0,0.41152043,15.714418,9.1633702)">
+      <path
+         d="m -11.008505,18.94248 h 3.9648439 v 4.960938 h -3.9648439 z m 0,-20.3474002 h 3.9648439 V 8.7509575 l -0.390625,5.7579295 h -3.1640629 l -0.410156,-5.7579295 z"
+         id="path3398"
+         sodipodi:nodetypes="cccccccccccc"
+         style="fill:#face12;fill-opacity:1" />
+    </g>
+  </g>
+</svg>
