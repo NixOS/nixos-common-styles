@@ -69,6 +69,25 @@
   &.-striped { .styled-table.striped }
 }
 
+.__table-icons {
+  span {
+    vertical-align: middle;
+    text-align: left;
+    display: inline-block;
+    &:not(:first-child) {
+      margin-left: @gutter/2;
+    }
+    #text-replacement(
+      @width:  24 * @unit,
+      @height: 24 * @unit
+    );
+  }
+}
+
+.table-icons {
+  &:extend(.__table-icons all);
+}
+
 //
 // `.responsivescroll-table` has to be used (or mixed-in) as the parent element of
 // a table that will be scrolled horizontally on narrow viewports.
