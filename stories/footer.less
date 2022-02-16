@@ -1,0 +1,16 @@
+@import "../src/index.less";
+
+body > #root {
+  footer {
+    &:extend(.page-footer all);
+  }
+}
+
+body.sb-main-padded.sb-show-main {
+  & > #root > footer {
+    // Storybook-specific workaround
+    margin-bottom: -@gutter;
+    margin-left: -@gutter;
+    margin-right: -@gutter;
+  }
+}

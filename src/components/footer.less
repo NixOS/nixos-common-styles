@@ -1,6 +1,6 @@
 // This file defines the navigation at the bottom of the page.
 
-body > footer {
+.page-footer {
   & > div {
     #container();
   }
@@ -190,4 +190,9 @@ body > footer {
       #svg.icon.social.github.white();
     }
   }
+}
+
+// Default class-less usage
+body > footer {
+  &:extend(.page-footer all);
 }

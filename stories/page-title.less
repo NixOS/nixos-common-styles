@@ -1,0 +1,10 @@
+@import "../src/index.less";
+
+body.sb-main-padded.sb-show-main {
+  & > #root > .page-title {
+    // Storybook-specific workaround
+    margin-top: -@gutter;
+    margin-left: -@gutter;
+    margin-right: -@gutter;
+  }
+}

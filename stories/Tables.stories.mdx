@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Tables" />
+
+More details about tables
+-------------------------
+
+### Adding icons in rows
+
+It is possible to do text replacement on cell contents in a coordinated manner
+using the `.table-icons()` mixin.
+
+The `.table-icons()` mixin can be used like so:
+
+```less
+.status, caption {
+  .table-icons();
+
+  .-is-eol::before {
+    #svg.icon.eol();
+  }
+  .-is-failing::before {
+    #svg.icon.failing();
+  }
+}
+```
+
+This assumes the following structure:
+
+```html
+<table>
+  <caption>
+    <aside>
+      <h2>Legend</h2>
+      <ul>
+        <li>
+          <span class="-is-failing">Build problem:</span> Build failing due to a problem.
+        </li>
+        <li>
+          <span class="-is-eol">End of life:</span> Channel is <abbr title="End-of-Line">EOL</abbr>.
+        </li>
+      </ul>
+    </aside>
+  </caption>
+  <tbody>
+    <tr>
+      <!-- ... -->
+      <td class="status">
+        <span class="-is-eol">End of life</span>
+        <span class="-is-failing">Build problem</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+```
