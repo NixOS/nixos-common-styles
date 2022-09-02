@@ -7,7 +7,7 @@
 
   // Use three's complement to automatically compute the widths.
   @_lambdaflake_width: @_lambdaflake_height * 587/517;
-  @_nixos_text_width: @_lambdaflake_height * 1059/516;
+  @_nix_text_width: @_lambdaflake_height * 595/484;
 
   @_height: #theme.navbar[height];
   @_link_flavour_size: 4*@unit;
@@ -104,7 +104,7 @@
     }
   }
 
-  // NixOS-specific customization of the navbar brand.
+  // Nix-specific customization of the navbar brand.
   // This uses the usual tricks to shove the text outside of the visible area,
   // to replace it with the pre-rendered paths.
   // It is using separate images for the logo and the text.
@@ -134,22 +134,22 @@
         left: initial;
       },
       @pseudo: after,
-      @width: @_nixos_text_width,
+      @width: @_nix_text_width,
       @height: @_height,
     );
     // Select according to the variant
     &::after when (#theme.navbar[variant] = light) {
-      #svg.nixos-text.black();
+      #svg.nix-text.black();
     }
     &::after when not (#theme.navbar[variant] = light) {
-      #svg.nixos-text.white();
+      #svg.nix-text.white();
     }
 
     // We can't rely on what `#text-replacement` gives us since we're doing it twice.
     // So we simply add them up here :)
-    width: @_lambdaflake_width + @_nixos_text_width;
+    width: @_lambdaflake_width + @_nix_text_width;
 
-    // Strip the NixOS text as in narrow -sm widths it might not fit.
+    // Strip the Nix text as in narrow -sm widths it might not fit.
     #screen-sm-only({
       width: @_lambdaflake_width;
       &::after {
