@@ -21,6 +21,44 @@
         pkgs = nixpkgs.legacyPackages.${system};
         packageInfo = pkgs.lib.importJSON ./package.json;
 
+        embedSVG = pkgs.writeScriptBin "embed-svg"
+          ''
+            #!${pkgs.bash}/bin/bash
+
+            in=$1
+            out=$2
+
+            mkdir -p $in.tmp
+
+            cp $in/*.svg $in.tmp/
+            rm -f $in.tmp/*.src.svg
+
+            echo ":: Optimizing svg files"
+            for f in $in.tmp/*.svg; do
+              echo "::  - $f"
+              ${pkgs.nodePackages.svgo}/bin/svgo $f &
+            done
+            # Wait until all `svgo` processes are done
+            # According to light testing, it is twice as fast that way.
+            wait
+
+            echo ":: Embedding SVG files"
+            source ${pkgs.stdenv}/setup
+            ls -la $in
+            cp $in/svg.less $out
+            for f in $in.tmp/*.svg; do
+              echo "::  - $f"
+              token=$(basename $f)
+              token=''${token^^}
+              token=''${token//[^A-Z0-9]/_}
+              token=SVG_''${token/%_SVG/}
+              substituteInPlace $out --replace "@$token)" "'$(cat $f)')"
+              substituteInPlace $out --replace "@$token," "'$(cat $f)',"
+            done
+
+            rm -rf $in.tmp
+          '';
+
         commonStyles = pkgs.stdenv.mkDerivation {
           name = "${packageInfo.name}-${self.lastModifiedDate}";
 
@@ -138,7 +176,7 @@
         };
 
       in rec {
-        packages = { inherit commonStyles storyBook; };
+        packages = { inherit embedSVG commonStyles storyBook; };
 
         defaultPackage = packages.commonStyles;
 
